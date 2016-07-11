@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_animation"
+            android:icon="@mipmap/animation"
+            android:title="Animation" />
+        <item
+            android:id="@+id/item_event"
+            android:icon="@mipmap/animation"
+            android:title="Event" />
+        <item
+            android:id="@+id/item_rxjava"
+            android:icon="@mipmap/animation"
+            android:title="Rxjava" />
+    </group>
+
+    <item android:title="Animation">
+        <menu>
+            <item
+                android:id="@+id/property"
+                android:icon="@mipmap/animation"
+                android:title="Property Animation" />
+            <item
+                android:id="@+id/view"
+                android:icon="@mipmap/animation"
+                android:title="View Animation" />
+            <item
+                android:id="@+id/drawable"
+                android:icon="@mipmap/animation"
+                android:title="Drawable Animation" />
+        </menu>
+    </item>
+</menu>
