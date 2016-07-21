@@ -16,18 +16,16 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(layout());
         AppManager.getInstance().addActivity(this);
         initWidget();
-
+        registerListener();
         this.context = this;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        registerListener();
     }
 
     @Override
