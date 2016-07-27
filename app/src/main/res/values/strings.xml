@@ -6,7 +6,7 @@
 
     <string name="view_animation">View Animation</string>
 
-    <string name="alpha">平移</string>
+    <string name="alpha">透明</string>
     <string name="rotate">旋转</string>
     <string name="translate">位移</string>
     <string name="scale">缩放</string>

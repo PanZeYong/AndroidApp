@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.demo.panju.androidapp.animation.fragment.ViewAnimationFragment;
 import com.demo.panju.androidapp.base.BaseActivity;
@@ -22,8 +21,6 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolbar;
-    @BindView(R.id.fg_container)
-    FrameLayout mContainer;
     @BindView(R.id.navigation_view)
     NavigationView mNavigationView;
     @BindView(R.id.drawer)
@@ -47,11 +44,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initWidget() {
-        mToolbar = (Toolbar)findViewById(R.id.tool_bar);
-        mContainer = (FrameLayout) findViewById(R.id.fg_container);
-        mDrawer = (DrawerLayout) findViewById(R.id.drawer);
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
-
         initToolbar();
     }
 
