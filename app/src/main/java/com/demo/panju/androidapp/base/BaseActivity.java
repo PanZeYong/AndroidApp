@@ -2,8 +2,11 @@ package com.demo.panju.androidapp.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Window;
+
+import butterknife.ButterKnife;
 
 /**
  * Basic activity of all activities,including common function
@@ -13,14 +16,18 @@ import android.view.Window;
 public abstract class BaseActivity extends AppCompatActivity{
     public Context context;
 
+    private FragmentTransaction mFragmentTransaction;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout());
-        AppManager.getInstance().addActivity(this);
-        initWidget();
-        registerListener();
         this.context = this;
+
+        ButterKnife.bind(this);
+
+        AppManager.getInstance().addActivity(this);
+
     }
 
     @Override
@@ -31,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ButterKnife.bind(this).unbind();
         AppManager.getInstance().finishAllActivity();
     }
 
@@ -39,4 +47,18 @@ public abstract class BaseActivity extends AppCompatActivity{
     public abstract void initWidget();
 
     public abstract void registerListener();
+
+    protected void replaceFragment(Fragment fragment, int containerViewId) {
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        mFragmentTransaction.replace(containerViewId, fragment);
+        mFragmentTransaction.commit();
+
+    }
+
+    protected void hideFragment(Fragment fragment) {
+        if (null != fragment) {
+            mFragmentTransaction.hide(fragment);
+        }
+    }
 }
