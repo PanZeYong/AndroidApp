@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  * Date : 2016.7.11
  */
 public abstract class BaseActivity extends AppCompatActivity{
-    public Context context;
+//    public Context context;
 
     private FragmentTransaction mFragmentTransaction;
 
@@ -22,7 +22,7 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout());
-        this.context = this;
+//        this.context = this;
 
         ButterKnife.bind(this);
 
