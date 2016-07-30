@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/item_animation"
+            android:id="@+id/item_mvp"
             android:icon="@mipmap/animation"
-            android:title="Animation" />
+            android:title="MVP Demo" />
         <item
             android:id="@+id/item_event"
             android:icon="@mipmap/animation"

@@ -5,9 +5,17 @@
     <string name="drawer_close">Menu</string>
 
     <string name="view_animation">View Animation</string>
+    <string name="mvp_demo">MVP Demo</string>
 
     <string name="alpha">透明</string>
     <string name="rotate">旋转</string>
     <string name="translate">位移</string>
     <string name="scale">缩放</string>
+
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="login">登陆</string>
+    <string name="login_success">恭喜你，登陆成功！</string>
+    <string name="login_fail">密码或用户名不正确</string>
+    <string name="username_not_exist">该用户名不存在</string>
 </resources>

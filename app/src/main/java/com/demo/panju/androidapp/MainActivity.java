@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.demo.panju.androidapp.animation.fragment.ViewAnimationFragment;
 import com.demo.panju.androidapp.base.BaseActivity;
+import com.demo.panju.androidapp.mvp.LoginFragment;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -27,6 +28,7 @@ public class MainActivity extends BaseActivity {
     DrawerLayout mDrawer;
 
     @BindString(R.string.view_animation) String mViewAnimation;
+    @BindString(R.string.mvp_demo) String mvpDemo;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
@@ -116,6 +118,11 @@ public class MainActivity extends BaseActivity {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
             switch (item.getItemId()) {
+                case R.id.item_mvp:
+                    replaceFragment(LoginFragment.newInstance(), R.id.fg_container);
+                    mToolbar.setTitle(mvpDemo);
+                    break;
+
                 case R.id.property:
                     break;
 
