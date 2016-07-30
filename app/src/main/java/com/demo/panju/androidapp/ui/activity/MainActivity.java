@@ -1,4 +1,4 @@
-package com.demo.panju.androidapp;
+package com.demo.panju.androidapp.ui.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -10,9 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.demo.panju.androidapp.animation.fragment.ViewAnimationFragment;
+import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseActivity;
-import com.demo.panju.androidapp.mvp.LoginFragment;
+import com.demo.panju.androidapp.ui.fragment.LoginFragment;
+import com.demo.panju.androidapp.ui.fragment.ViewAnimationFragment;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -110,7 +111,7 @@ public class MainActivity extends BaseActivity {
                     invalidateOptionsMenu();
                 }
             };
-          mActionBarDrawerToggle.syncState();
+            mActionBarDrawerToggle.syncState();
         }
     }
 

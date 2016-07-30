@@ -1,4 +1,4 @@
-package com.demo.panju.androidapp.mvp;
+package com.demo.panju.androidapp.mvp.presenter;
 
 import android.content.Context;
 import android.os.Handler;
@@ -6,11 +6,15 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.demo.panju.androidapp.mvp.model.UserModel;
+import com.demo.panju.androidapp.mvp.model.UserModelImpl;
+import com.demo.panju.androidapp.mvp.view.LoginView;
+
 /**
  * Author : PZY
  * Date : 2016.7.30
  */
-public class LoginPresenterImpl implements LoginPresenter{
+public class LoginPresenterImpl implements LoginPresenter {
     private UserModel mUserModel;
     private LoginView mLoginView;
     private Context mContext;

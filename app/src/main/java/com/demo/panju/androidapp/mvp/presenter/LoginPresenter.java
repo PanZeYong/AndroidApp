@@ -1,6 +1,7 @@
-package com.demo.panju.androidapp.mvp;
+package com.demo.panju.androidapp.mvp.presenter;
 
 import com.demo.panju.androidapp.base.BasePresenter;
+import com.demo.panju.androidapp.mvp.view.LoginView;
 
 /**
  * Author : PZY

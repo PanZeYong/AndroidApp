@@ -1,4 +1,4 @@
-package com.demo.panju.androidapp.mvp;
+package com.demo.panju.androidapp.bean;
 
 /**
  * Author : ZPY

@@ -1,16 +1,17 @@
-package com.demo.panju.androidapp.mvp;
+package com.demo.panju.androidapp.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseFragment;
+import com.demo.panju.androidapp.mvp.presenter.LoginPresenterImpl;
+import com.demo.panju.androidapp.mvp.view.LoginView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

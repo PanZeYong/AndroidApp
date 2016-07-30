@@ -1,11 +1,14 @@
-package com.demo.panju.androidapp.mvp;
+package com.demo.panju.androidapp.mvp.model;
 
 import android.util.SparseArray;
+
+import com.demo.panju.androidapp.bean.UserBean;
+
 /**
  * Author : PZY
  * Date : 2016.7.30
  */
-public class UserModelImpl implements UserModel{
+public class UserModelImpl implements UserModel {
     private int userId;
     private String username;
     private String password;

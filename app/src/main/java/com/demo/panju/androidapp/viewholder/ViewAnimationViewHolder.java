@@ -1,15 +1,12 @@
-package com.demo.panju.androidapp.animation.viewholder;
+package com.demo.panju.androidapp.viewholder;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
 import com.demo.panju.androidapp.R;
-import com.demo.panju.androidapp.animation.adapter.ViewAnimationAdapter;
+import com.demo.panju.androidapp.adapter.ViewAnimationAdapter;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

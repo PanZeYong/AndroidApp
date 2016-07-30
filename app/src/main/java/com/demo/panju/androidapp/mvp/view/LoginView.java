@@ -1,4 +1,4 @@
-package com.demo.panju.androidapp.mvp;
+package com.demo.panju.androidapp.mvp.view;
 
 import com.demo.panju.androidapp.base.BaseView;
 

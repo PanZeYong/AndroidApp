@@ -1,11 +1,10 @@
-package com.demo.panju.androidapp.animation.fragment;
+package com.demo.panju.androidapp.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.demo.panju.androidapp.R;
-import com.demo.panju.androidapp.animation.adapter.ViewAnimationAdapter;
+import com.demo.panju.androidapp.adapter.ViewAnimationAdapter;
 import com.demo.panju.androidapp.base.BaseFragment;
 
 import butterknife.BindView;

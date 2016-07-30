@@ -7,8 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.demo.panju.androidapp.MainActivity"
-    >
+    tools:context=".ui.activity.MainActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
