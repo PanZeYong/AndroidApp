@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -12,14 +13,13 @@ import android.view.View;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseActivity;
-import com.demo.panju.androidapp.ui.fragment.LoginFragment;
-import com.demo.panju.androidapp.ui.fragment.ViewAnimationFragment;
+import com.demo.panju.androidapp.mvp.presenter.MainPresenterImpl;
+import com.demo.panju.androidapp.mvp.view.MainView;
 
-import butterknife.BindString;
 import butterknife.BindView;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainView{
 
     @BindView(R.id.tool_bar)
     Toolbar mToolbar;
@@ -28,10 +28,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.drawer)
     DrawerLayout mDrawer;
 
-    @BindString(R.string.view_animation) String mViewAnimation;
-    @BindString(R.string.mvp_demo) String mvpDemo;
-
     private ActionBarDrawerToggle mActionBarDrawerToggle;
+
+    private MainPresenterImpl mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initWidget() {
         initToolbar();
+
+        mainPresenter = new MainPresenterImpl();
+        mainPresenter.attachView(this);
     }
 
     @Override
@@ -80,6 +82,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mainPresenter.detachView();
     }
 
     private void initToolbar() {
@@ -118,26 +121,28 @@ public class MainActivity extends BaseActivity {
     private NavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.item_mvp:
-                    replaceFragment(LoginFragment.newInstance(), R.id.fg_container);
-                    mToolbar.setTitle(mvpDemo);
-                    break;
-
-                case R.id.property:
-                    break;
-
-                case R.id.view:
-                    replaceFragment(ViewAnimationFragment.newInstance(), R.id.fg_container);
-                    mToolbar.setTitle(mViewAnimation);
-                    break;
-
-                default:
-                    break;
-            }
-            item.setChecked(true);
-            mDrawer.closeDrawers();
+            mainPresenter.clickMenuItem(item);
             return true;
         }
     };
+
+    @Override
+    public void showFragment(Fragment fragment, int container) {
+        replaceFragment(fragment, container);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        mToolbar.setTitle(title);
+    }
+
+    @Override
+    public void closeDrawer() {
+        mDrawer.closeDrawers();
+    }
+
+    @Override
+    public void openDrawer() {
+
+    }
 }

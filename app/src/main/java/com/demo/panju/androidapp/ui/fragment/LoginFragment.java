@@ -66,11 +66,6 @@ public class LoginFragment extends BaseFragment implements LoginView {
         mProgressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void showFragment() {
-
-    }
-
     @OnClick(R.id.btn_login)
     public void login() {
         mLoginPresenterImpl.login(getUserId(), getUsername(), getPassword());
