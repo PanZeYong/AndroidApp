@@ -1,14 +1,16 @@
 package com.demo.panju.androidapp.mvp.presenter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.mvp.view.MainView;
 import com.demo.panju.androidapp.ui.fragment.LoginFragment;
 import com.demo.panju.androidapp.ui.fragment.ViewAnimationFragment;
+
+import javax.inject.Inject;
+
 
 /**
  * Author : PZY
@@ -19,6 +21,10 @@ public class MainPresenterImpl implements MainPresenter {
 
     private final static String MVP_DEMO = "MVP Demo";
     private final static String VIEW_ANIMATION = "View Animation";
+
+    @Inject
+    public MainPresenterImpl() {
+    }
 
     @Override
     public void clickMenuItem(MenuItem item) {
@@ -41,21 +47,6 @@ public class MainPresenterImpl implements MainPresenter {
         }
         item.setChecked(true);
         mainView.closeDrawer();
-    }
-
-    @Override
-    public void clickAnimation(View view) {
-
-    }
-
-    @Override
-    public void closeDrawer() {
-        mainView.closeDrawer();
-    }
-
-    @Override
-    public void openDrawer() {
-        mainView.openDrawer();
     }
 
     @Override

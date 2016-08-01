@@ -17,4 +17,10 @@ public class BaseFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.mContext = getActivity();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MyApplication.getInstance(mContext).watch(this);
+    }
 }

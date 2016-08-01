@@ -13,8 +13,13 @@ import android.view.View;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseActivity;
+import com.demo.panju.androidapp.inject.component.DaggerMainComponent;
+import com.demo.panju.androidapp.inject.component.MainComponent;
+import com.demo.panju.androidapp.inject.module.MainModule;
 import com.demo.panju.androidapp.mvp.presenter.MainPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.MainView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -30,13 +35,25 @@ public class MainActivity extends BaseActivity implements MainView{
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
-    private MainPresenterImpl mainPresenter;
+    private MainComponent mainComponent;
+
+    @Inject MainPresenterImpl mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initMainComponent();
         initWidget();
         registerListener();
+    }
+
+    private void initMainComponent() {
+        mainComponent = DaggerMainComponent.builder()
+                        .appComponent(getAppComponent())
+                        .mainModule(new MainModule(this))
+                        .build();
+
+        mainComponent.inject(this);
     }
 
     @Override
@@ -48,7 +65,6 @@ public class MainActivity extends BaseActivity implements MainView{
     public void initWidget() {
         initToolbar();
 
-        mainPresenter = new MainPresenterImpl();
         mainPresenter.attachView(this);
     }
 

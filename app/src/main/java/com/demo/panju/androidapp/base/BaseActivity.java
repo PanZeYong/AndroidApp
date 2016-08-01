@@ -1,10 +1,11 @@
 package com.demo.panju.androidapp.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+
+import com.demo.panju.androidapp.inject.component.AppComponent;
 
 import butterknife.ButterKnife;
 
@@ -14,7 +15,6 @@ import butterknife.ButterKnife;
  * Date : 2016.7.11
  */
 public abstract class BaseActivity extends AppCompatActivity{
-//    public Context context;
 
     private FragmentTransaction mFragmentTransaction;
 
@@ -22,7 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout());
-//        this.context = this;
 
         ButterKnife.bind(this);
 
@@ -60,5 +59,9 @@ public abstract class BaseActivity extends AppCompatActivity{
         if (null != fragment) {
             mFragmentTransaction.hide(fragment);
         }
+    }
+
+    protected AppComponent getAppComponent() {
+        return ((MyApplication)getApplication()).getAppComponent();
     }
 }
