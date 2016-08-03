@@ -9,13 +9,14 @@ import android.support.v4.app.Fragment;
  * Author : PZY
  * Date : 2016.7.27
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
     protected Context mContext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getActivity();
+        init();
     }
 
     @Override
@@ -23,4 +24,6 @@ public class BaseFragment extends Fragment {
         super.onDestroy();
         MyApplication.getInstance(mContext).watch(this);
     }
+
+    protected abstract void init();
 }

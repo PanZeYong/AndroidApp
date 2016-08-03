@@ -1,12 +1,12 @@
 package com.demo.panju.androidapp.mvp.presenter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.mvp.view.MainView;
 import com.demo.panju.androidapp.ui.fragment.LoginFragment;
+import com.demo.panju.androidapp.ui.fragment.PropertyAnimationFragment;
 import com.demo.panju.androidapp.ui.fragment.ViewAnimationFragment;
 
 import javax.inject.Inject;
@@ -21,6 +21,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     private final static String MVP_DEMO = "MVP Demo";
     private final static String VIEW_ANIMATION = "View Animation";
+    private final static String PROPERTY_ANIMATION = "Property Animation";
 
     @Inject
     public MainPresenterImpl() {
@@ -35,6 +36,8 @@ public class MainPresenterImpl implements MainPresenter {
                 break;
 
             case R.id.property:
+                mainView.showFragment(PropertyAnimationFragment.newInstance(), R.id.fg_container);
+                mainView.setTitle(PROPERTY_ANIMATION);
                 break;
 
             case R.id.view:

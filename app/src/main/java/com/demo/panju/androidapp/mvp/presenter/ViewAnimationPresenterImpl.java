@@ -15,6 +15,8 @@ import android.view.animation.TranslateAnimation;
 
 import com.demo.panju.androidapp.mvp.view.ViewAnimationView;
 
+import javax.inject.Inject;
+
 /**
  * Author : panju
  * Date : 16-7-30
@@ -24,6 +26,7 @@ public class ViewAnimationPresenterImpl implements ViewAnimationPresenter {
     private int mWidth;
     private int mHeight;
 
+    @Inject
     public ViewAnimationPresenterImpl (Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         mWidth = windowManager.getDefaultDisplay().getWidth();

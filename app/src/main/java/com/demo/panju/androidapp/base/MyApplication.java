@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.demo.panju.androidapp.inject.component.AppComponent;
+import com.demo.panju.androidapp.inject.component.DaggerAppComponent;
+import com.demo.panju.androidapp.inject.module.AppModule;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -29,11 +31,9 @@ public class MyApplication extends Application{
     }
 
     private void initAppComponent() {
-//        this.mAppComponent = DaggerAppComponent.builder()
-//                .appModule(new AppModule(this))
-//                .build();
-
-//        mAppComponent.inject(this);
+        this.mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
     }
 
     public AppComponent getAppComponent() {

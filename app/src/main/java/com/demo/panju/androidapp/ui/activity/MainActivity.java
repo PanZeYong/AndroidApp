@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseActivity;
+import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.DaggerMainComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
 import com.demo.panju.androidapp.inject.module.MainModule;
@@ -24,7 +25,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 
-public class MainActivity extends BaseActivity implements MainView{
+public class MainActivity extends BaseActivity
+        implements MainView, HasComponent<MainComponent>{
 
     @BindView(R.id.tool_bar)
     Toolbar mToolbar;
@@ -35,7 +37,7 @@ public class MainActivity extends BaseActivity implements MainView{
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
 
-    private MainComponent mainComponent;
+    public MainComponent mainComponent;
 
     @Inject MainPresenterImpl mainPresenter;
 
@@ -160,5 +162,10 @@ public class MainActivity extends BaseActivity implements MainView{
     @Override
     public void openDrawer() {
 
+    }
+
+    @Override
+    public MainComponent getComponent() {
+        return this.mainComponent;
     }
 }

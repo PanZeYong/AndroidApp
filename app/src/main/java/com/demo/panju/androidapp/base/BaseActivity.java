@@ -39,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity{
         super.onDestroy();
         ButterKnife.bind(this).unbind();
         AppManager.getInstance().finishAllActivity();
+
     }
 
     public abstract int layout();
@@ -48,16 +49,16 @@ public abstract class BaseActivity extends AppCompatActivity{
     public abstract void registerListener();
 
     protected void replaceFragment(Fragment fragment, int containerViewId) {
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        this.mFragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        mFragmentTransaction.replace(containerViewId, fragment);
-        mFragmentTransaction.commit();
-
+        this.mFragmentTransaction.replace(containerViewId, fragment);
+        this.mFragmentTransaction.commit();
+        this.mFragmentTransaction = null;
     }
 
     protected void hideFragment(Fragment fragment) {
         if (null != fragment) {
-            mFragmentTransaction.hide(fragment);
+            this.mFragmentTransaction.hide(fragment);
         }
     }
 

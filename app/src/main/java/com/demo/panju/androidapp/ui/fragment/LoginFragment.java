@@ -10,8 +10,12 @@ import android.widget.ProgressBar;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseFragment;
+import com.demo.panju.androidapp.inject.HasComponent;
+import com.demo.panju.androidapp.inject.component.MainComponent;
 import com.demo.panju.androidapp.mvp.presenter.LoginPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.LoginView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,16 +33,20 @@ public class LoginFragment extends BaseFragment implements LoginView {
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
 
-    private LoginPresenterImpl mLoginPresenterImpl;
+    @Inject LoginPresenterImpl mLoginPresenterImpl;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
-        mLoginPresenterImpl = new LoginPresenterImpl(mContext);
-        mLoginPresenterImpl.attachView(this);
         return view;
+    }
+
+    @Override
+    protected void init() {
+        getComponent(MainComponent.class).inject(this);
+        mLoginPresenterImpl.attachView(this);
     }
 
     @Override
@@ -80,4 +88,10 @@ public class LoginFragment extends BaseFragment implements LoginView {
     public static LoginFragment newInstance() {
         return new LoginFragment();
     }
+
+    @SuppressWarnings("unchecked") protected <C> C getComponent(Class<C> componentType) {
+        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
+    }
+
+
 }

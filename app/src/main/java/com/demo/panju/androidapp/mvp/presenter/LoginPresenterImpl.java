@@ -10,6 +10,8 @@ import com.demo.panju.androidapp.mvp.model.UserModel;
 import com.demo.panju.androidapp.mvp.model.UserModelImpl;
 import com.demo.panju.androidapp.mvp.view.LoginView;
 
+import javax.inject.Inject;
+
 /**
  * Author : PZY
  * Date : 2016.7.30
@@ -35,6 +37,7 @@ public class LoginPresenterImpl implements LoginPresenter {
         }
     };
 
+    @Inject
     public LoginPresenterImpl(Context context) {
         this.mUserModel = new UserModelImpl();
         this.mContext = context;
