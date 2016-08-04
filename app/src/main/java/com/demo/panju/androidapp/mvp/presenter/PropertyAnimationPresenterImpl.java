@@ -4,9 +4,12 @@ import android.animation.AnimatorSet;
 import android.animation.IntEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.demo.panju.androidapp.mvp.view.PropertyAnimationView;
+import com.demo.panju.androidapp.ui.activity.CustomAnimationActivity;
 
 import javax.inject.Inject;
 
@@ -16,8 +19,12 @@ import javax.inject.Inject;
  */
 public class PropertyAnimationPresenterImpl implements PropertyAnimationPresenter{
     private PropertyAnimationView mView;
+
+    private Context mContext;
     @Inject
-    public PropertyAnimationPresenterImpl() {}
+    public PropertyAnimationPresenterImpl(Context context) {
+        this.mContext = context;
+    }
 
     @Override
     public void attachView(@NonNull PropertyAnimationView view) {
@@ -78,6 +85,10 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
 
             case 11:
                 animatorSet();
+                break;
+
+            case 12:
+                CustomAnimationActivity.startActivity(mView.getCurrentActivity());
                 break;
 
             default:
