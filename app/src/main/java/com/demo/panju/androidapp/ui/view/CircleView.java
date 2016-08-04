@@ -5,61 +5,79 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 
-import com.demo.panju.androidapp.evaluator.PointEvaluator;
+import com.demo.panju.androidapp.animation.CustomInterpolator;
+import com.demo.panju.androidapp.bean.Point;
+import com.demo.panju.androidapp.animation.PointEvaluator;
 
 /**
  * Author : PZY
  * Date : 2016.8.4
  */
 public class CircleView extends View{
-    private static final int R = 20;
+    private static final float LENGTH = 20f;
 
     private Paint mPaint;
 
+    private Point mPoint1;
+    private Point mPoint2;
+
     private Point mCurrentPoint;
-//    private Point mPoint2;
 
-
-    public CircleView(Context context) {
-        super(context);
-    }
+    private boolean mFlag = true;
 
     public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
         this.mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        this.mPaint.setColor(Color.YELLOW);
+        this.mPaint.setColor(Color.RED);
+
+        this.mPoint1 = new Point(LENGTH, LENGTH);
+        this.mPoint2 = new Point(6 * LENGTH, 6 * LENGTH);
+
+        this.mCurrentPoint = this.mPoint1;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (null == this.mCurrentPoint) {
-            this.mCurrentPoint = new Point(R, R);
-            drawCircle(canvas);
+        if (mFlag) {
+            drawSquare(canvas);
             startAnimation();
         } else {
-            drawCircle(canvas);
+            drawSquare(canvas);
         }
     }
 
-    private void drawCircle(Canvas canvas) {
-        int x = this.mCurrentPoint.x;
-        int y= this.mCurrentPoint.y;
+    private void drawSquare(Canvas canvas) {
+        float x1;
+        float y1;
+        float x2;
+        float y2;
 
-        canvas.drawCircle(x, y, R, mPaint);
+        if (mFlag) {
+            x1 = this.mPoint1.getX();
+            y1 = this.mPoint1.getY();
+
+            x2 = this.mPoint2.getX();
+            y2 = this.mPoint2.getY();
+            this.mFlag = false;
+        } else {
+            x1 = this.mPoint1.getX() + this.mCurrentPoint.getX();
+            y1 = this.mPoint1.getY() + this. mCurrentPoint.getY();
+
+            x2 = this.mPoint2.getX() + this.mCurrentPoint.getX();
+            y2 = this.mPoint2.getY() + this. mCurrentPoint.getY();
+        }
+
+        canvas.drawRect(x1, y1, x2, y2, mPaint);
     }
 
     private void startAnimation() {
-        com.demo.panju.androidapp.bean.Point startPoint = new com.demo.panju.androidapp.bean.Point(20f, 20f);
-        com.demo.panju.androidapp.bean.Point endPoint = new com.demo.panju.androidapp.bean.Point(320f, 720f);
+        Point startPoint = this.mPoint1;
+        Point endPoint = new Point(getWidth() / 2, getHeight() / 2);
         ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -69,7 +87,8 @@ public class CircleView extends View{
             }
         });
 
-        animator.setDuration(1000);
+        animator.setDuration(5000);
+        animator.setInterpolator(new CustomInterpolator());
         animator.start();
     }
 }
