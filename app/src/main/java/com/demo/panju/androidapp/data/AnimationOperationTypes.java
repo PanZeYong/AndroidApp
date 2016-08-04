@@ -44,6 +44,8 @@ public class AnimationOperationTypes {
         mPropertyDatas.add("y");
         mPropertyDatas.add("propertyValuesHolder");
         mPropertyDatas.add("animatorSet");
+        mPropertyDatas.add("自定义view动画");
+
 
         return mPropertyDatas;
     }

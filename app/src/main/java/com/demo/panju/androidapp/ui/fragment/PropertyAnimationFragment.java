@@ -1,5 +1,6 @@
 package com.demo.panju.androidapp.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,6 +19,7 @@ import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
 import com.demo.panju.androidapp.mvp.presenter.PropertyAnimationPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.PropertyAnimationView;
+import com.demo.panju.androidapp.ui.activity.MainActivity;
 
 import javax.inject.Inject;
 
@@ -71,6 +73,12 @@ public class PropertyAnimationFragment extends BaseFragment implements PropertyA
     public ImageView getImageView() {
         return this.mBall;
     }
+
+    @Override
+    public Activity getCurrentActivity() {
+        return getActivity();
+    }
+
 
     private AnimationAdapter.OnItemListener onItemListener = new AnimationAdapter.OnItemListener() {
         @Override
