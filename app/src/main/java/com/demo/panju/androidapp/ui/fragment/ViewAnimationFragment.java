@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.adapter.AnimationAdapter;
 import com.demo.panju.androidapp.base.BaseFragment;
-import com.demo.panju.androidapp.data.AnimationOperationTypes;
+import com.demo.panju.androidapp.data.Data;
 import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
 import com.demo.panju.androidapp.mvp.presenter.ViewAnimationPresenterImpl;
@@ -79,7 +79,7 @@ public class ViewAnimationFragment extends BaseFragment implements ViewAnimation
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(adapter);
 
-        adapter.refresh(AnimationOperationTypes.getViewAnimationOperationType());
+        adapter.refresh(Data.getViewAnimationOperationType());
         adapter.setOnItemListener(onItemListener);
     }
 

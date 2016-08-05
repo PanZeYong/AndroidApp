@@ -6,9 +6,9 @@
             android:icon="@mipmap/animation"
             android:title="MVP Demo" />
         <item
-            android:id="@+id/item_event"
+            android:id="@+id/item_matrix"
             android:icon="@mipmap/animation"
-            android:title="Event" />
+            android:title="Matrix Demo" />
         <item
             android:id="@+id/item_rxjava"
             android:icon="@mipmap/animation"
