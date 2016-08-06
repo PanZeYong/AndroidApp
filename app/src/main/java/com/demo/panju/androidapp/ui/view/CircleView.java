@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -30,12 +29,12 @@ public class CircleView extends View{
 
     public CircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.mPaint.setColor(Color.YELLOW);
     }
 
     public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        this.mPaint.setColor(Color.YELLOW);
     }
 
     @Override
@@ -58,8 +57,8 @@ public class CircleView extends View{
     }
 
     private void startAnimation() {
-        com.demo.panju.androidapp.bean.Point startPoint = new com.demo.panju.androidapp.bean.Point(20f, 20f);
-        com.demo.panju.androidapp.bean.Point endPoint = new com.demo.panju.androidapp.bean.Point(320f, 720f);
+        Point startPoint = new Point(20f, 20f);
+        Point endPoint = new Point(320f, 720f);
         ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(), startPoint, endPoint);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
