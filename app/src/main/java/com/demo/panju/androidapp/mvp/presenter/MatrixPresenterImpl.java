@@ -37,6 +37,38 @@ public class MatrixPresenterImpl implements MatrixPresenter {
                 rotate();
                 break;
 
+            case 2:
+                scale();
+                break;
+
+            case 3:
+                skewX();
+                break;
+
+            case 4:
+                skewY();
+                break;
+
+            case 5:
+                skew();
+                break;
+
+            case 6:
+                symmetryX();
+                break;
+
+            case 7:
+                symmetryY();
+                break;
+
+            case 8:
+                symmetryXY();
+                break;
+
+            case 9:
+                symmetryXYF();
+                break;
+
             default:
                 break;
         }
@@ -58,13 +90,10 @@ public class MatrixPresenterImpl implements MatrixPresenter {
 
     private void translate() {
         matrix.preTranslate(mWidth, mHeight);
-        matrixView.getImageView().setImageMatrix(matrix);
-        matrixView.getImageView().invalidate();
-        outputMatrix();
+        setImageView();
     }
 
     private void rotate() {
-        matrix.reset();
         //相对于前一个矩阵右乘
         matrix.preRotate(45f);
 
@@ -79,13 +108,66 @@ public class MatrixPresenterImpl implements MatrixPresenter {
 //        matrix.postRotate(45f);
 //        matrix.postTranslate(mWidth / 2, mHeight / 2);
 
-        matrixView.getImageView().setImageMatrix(matrix);
-        matrixView.getImageView().invalidate();
-        outputMatrix();
+        setImageView();
     }
 
     private void scale() {
+        matrix.setTranslate(2 * mWidth, 2 * mHeight);
+        matrix.setScale(3, 3, mWidth / 2, mHeight / 2);
+        setImageView();
+    }
 
+    /**
+     * X轴错切：y不变,x坐标所对应的坐标平移相应比例
+     * Y轴错切：x不变,y坐标所对应的坐标平移相应比例
+     */
+    private void skewX() {
+        matrix.setSkew(2, 0);
+        setImageView();
+    }
+
+    private void skewY() {
+        matrix.setSkew(0, 2);
+        setImageView();
+    }
+
+    private void skew() {
+        matrix.setSkew(2, 2);
+        setImageView();
+    }
+
+    private void symmetryX() {
+        float [] values = {1, 0, 0, 0, -1, 0, 0, 0, 1};
+        matrix.setValues(values);
+        matrix.postTranslate(mWidth, mHeight);
+        setImageView();
+    }
+
+    private void symmetryY() {
+        float [] values = {-1, 0, 0, 0, 1, 0, 0, 0, 1};
+        matrix.setValues(values);
+        matrix.postTranslate(mWidth, mHeight);
+        setImageView();
+    }
+
+    private void symmetryXY() {
+        float [] values = {0, -1, 0, -1, 0, 0, 0, 0, 1};
+        matrix.setValues(values);
+        matrix.postTranslate(mWidth, mHeight);
+        setImageView();
+    }
+
+    private void symmetryXYF() {
+        float [] values = {0, 1, 0, 1, 0, 0, 0, 0, 1};
+        matrix.setValues(values);
+        matrix.postTranslate(mWidth, mHeight);
+        setImageView();
+    }
+
+    private void setImageView() {
+        matrixView.getImageView().setImageMatrix(matrix);
+        matrixView.getImageView().invalidate();
+        outputMatrix();
     }
 
     private void outputMatrix() {

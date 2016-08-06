@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.WindowManager;
 
+import com.demo.panju.androidapp.animation.ShakeAnimation;
 import com.demo.panju.androidapp.bean.Point;
 import com.demo.panju.androidapp.mvp.view.PropertyAnimationView;
 import com.demo.panju.androidapp.ui.activity.CustomAnimationActivity;
@@ -101,6 +102,10 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
 
             case 13:
                 parabola();
+                break;
+
+            case 14:
+                shake();
                 break;
 
             default:
@@ -216,6 +221,13 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
                 mView.getImageView().setY(point.getY());
             }
         });
+    }
+
+    private void shake() {
+        ShakeAnimation animation = new ShakeAnimation();
+        animation.setDuration(5000);
+        animation.setRepeatCount(5);
+        mView.getImageView().startAnimation(animation);
     }
 
     private void reset() {
