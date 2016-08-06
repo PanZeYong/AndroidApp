@@ -18,7 +18,8 @@ public class MatrixPresenterImpl implements MatrixPresenter {
 
     private Matrix matrix;
 
-    private CustomImageView imageView;
+    private float mWidth;
+    private float mHeight;
 
     @Inject
     public MatrixPresenterImpl() {
@@ -32,6 +33,10 @@ public class MatrixPresenterImpl implements MatrixPresenter {
                 translate();
                 break;
 
+            case 1:
+                rotate();
+                break;
+
             default:
                 break;
         }
@@ -40,6 +45,10 @@ public class MatrixPresenterImpl implements MatrixPresenter {
     @Override
     public void attachView(@NonNull MatrixView view) {
         this.matrixView = view;
+
+        this.mWidth = matrixView.getImageView().getBitmap().getWidth();
+        this.mHeight = matrixView.getImageView().getBitmap().getHeight();
+
     }
 
     @Override
@@ -47,12 +56,39 @@ public class MatrixPresenterImpl implements MatrixPresenter {
         this.matrixView = null;
     }
 
-    public void translate() {
-        Log.e("TAG", "Width * Height = " + matrixView.getImageView().getBitmap().getWidth() + "*" + matrixView.getImageView().getBitmap().getHeight());
-        matrix.postTranslate(matrixView.getImageView().getBitmap().getWidth(), matrixView.getImageView().getBitmap().getHeight());
+    private void translate() {
+        matrix.preTranslate(mWidth, mHeight);
         matrixView.getImageView().setImageMatrix(matrix);
         matrixView.getImageView().invalidate();
+        outputMatrix();
+    }
 
+    private void rotate() {
+        matrix.reset();
+        //相对于前一个矩阵右乘
+        matrix.preRotate(45f);
+
+        //左乘
+//        matrix.postRotate(45f);
+
+        //功能与preRotate一样
+//        matrix.setRotate(45f);
+        matrix.setRotate(45f, mWidth / 2, mHeight / 2);
+        //功能与setRotate一样
+//        matrix.setTranslate(-mWidth / 2, -mHeight / 2);
+//        matrix.postRotate(45f);
+//        matrix.postTranslate(mWidth / 2, mHeight / 2);
+
+        matrixView.getImageView().setImageMatrix(matrix);
+        matrixView.getImageView().invalidate();
+        outputMatrix();
+    }
+
+    private void scale() {
+
+    }
+
+    private void outputMatrix() {
         float[] matrixValues = new float[9];
         matrix.getValues(matrixValues);
         for(int i = 0; i < 3; ++i)

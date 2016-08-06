@@ -17,14 +17,9 @@ import javax.inject.Inject;
  * Author : PZY
  * Date : 2016-8-5
  */
-public class CustomImageView extends ImageView{
+public class CustomImageView extends ImageView {
     private Matrix matrix;
     private Bitmap bitmap;
-
-//    public CustomImageView(Context context, AttributeSet attrs) {
-//        super(context, attrs);
-//        init();
-//    }
 
     @Inject
     public CustomImageView(Context context) {
@@ -49,7 +44,6 @@ public class CustomImageView extends ImageView{
 
     @Override
     public void setImageMatrix(Matrix matrix) {
-        Log.e("TAG", "setImageMatrix");
         this.matrix.set(matrix);
         super.setImageMatrix(matrix);
     }
@@ -57,4 +51,5 @@ public class CustomImageView extends ImageView{
     public Bitmap getBitmap() {
         return bitmap;
     }
+
 }

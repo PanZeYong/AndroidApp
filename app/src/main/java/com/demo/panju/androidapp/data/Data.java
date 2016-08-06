@@ -63,6 +63,7 @@ public class Data {
         }
 
         mTransform.add("平移");
+        mTransform.add("旋转");
 
         return mTransform;
     }

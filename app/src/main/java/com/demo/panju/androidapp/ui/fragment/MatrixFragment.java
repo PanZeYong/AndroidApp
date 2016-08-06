@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.adapter.AnimationAdapter;
@@ -29,8 +30,6 @@ import butterknife.ButterKnife;
  * Date : 2016.8.5
  */
 public class MatrixFragment extends BaseFragment implements MatrixView {
-//    @BindView(R.id.matrix)
-//    CustomImageView imageView;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.fl)
@@ -50,6 +49,7 @@ public class MatrixFragment extends BaseFragment implements MatrixView {
         ButterKnife.bind(this, view);
         initRecycleView();
         mFrameLayout.addView(imageView);
+        imageView.setScaleType(ImageView.ScaleType.MATRIX);
         return view;
     }
 
