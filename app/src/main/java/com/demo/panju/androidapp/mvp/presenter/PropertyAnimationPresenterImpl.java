@@ -4,10 +4,14 @@ import android.animation.AnimatorSet;
 import android.animation.IntEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.WindowManager;
 
+import com.demo.panju.androidapp.bean.Point;
 import com.demo.panju.androidapp.mvp.view.PropertyAnimationView;
 import com.demo.panju.androidapp.ui.activity.CustomAnimationActivity;
 
@@ -20,10 +24,14 @@ import javax.inject.Inject;
 public class PropertyAnimationPresenterImpl implements PropertyAnimationPresenter{
     private PropertyAnimationView mView;
 
-    private Context mContext;
+    private int mWidth;
+    private int mHeight;
+
     @Inject
     public PropertyAnimationPresenterImpl(Context context) {
-        this.mContext = context;
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        mWidth = windowManager.getDefaultDisplay().getWidth();
+        mHeight = windowManager.getDefaultDisplay().getHeight();
     }
 
     @Override
@@ -88,7 +96,11 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
                 break;
 
             case 12:
-                CustomAnimationActivity.startActivity(mView.getCurrentActivity());
+                mView.addView();
+                break;
+
+            case 13:
+                parabola();
                 break;
 
             default:
@@ -97,12 +109,14 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
     }
 
     private void translateX() {
+        reset();
         ObjectAnimator animator = ObjectAnimator.ofFloat(mView.getImageView(), "translationX", 240);
         animator.setDuration(500);
         animator.start();
     }
 
     private void translateY() {
+        reset();
         ObjectAnimator animator = ObjectAnimator.ofFloat(mView.getImageView(), "translationY", 480);
         animator.setDuration(500);
         animator.start();
@@ -145,18 +159,21 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
     }
 
     private void x() {
+        reset();
         ObjectAnimator animator = ObjectAnimator.ofFloat(mView.getImageView(), "x", 88f);
         animator.setDuration(500);
         animator.start();
     }
 
     private void y() {
+        reset();
         ObjectAnimator animator = ObjectAnimator.ofFloat(mView.getImageView(), "y", 144f);
         animator.setDuration(500);
         animator.start();
     }
 
     private void propertyValuesHolder() {
+        reset();
         PropertyValuesHolder translationX = PropertyValuesHolder.ofFloat("translationX", 480f, 120f);
         PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 3f, 1f, 2f);
         PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 1.0f, 2.0f, 1.5f);
@@ -166,6 +183,7 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
     }
 
     private void animatorSet() {
+        reset();
         ObjectAnimator translationX = ObjectAnimator.ofFloat(mView.getImageView(), "translationX", -200f, 280f);
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(mView.getImageView(), "scaleX", 2.0f, 1.0f, 2.0f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(mView.getImageView(), "scaleY", 1.0f, 2.0f, 1.5f);
@@ -175,5 +193,34 @@ public class PropertyAnimationPresenterImpl implements PropertyAnimationPresente
         animatorSet.setDuration(5000);
         animatorSet.play(translationX).before(scaleX).before(scaleY).before(rotationX);
         animatorSet.start();
+    }
+
+    private void parabola() {
+        reset();
+        ValueAnimator animator = ValueAnimator.ofObject(new TypeEvaluator<Point>() {
+            @Override
+            public Point evaluate(float v, Point start, Point end) {
+                float x = 200 * 3 * v;
+                float y = 0.5f * 150 * (3 * v) * (3 * v);
+                return new Point(x, y);
+            }
+        }, new Point(0, 0));
+        animator.setDuration(3000);
+        animator.start();
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                Point point = (Point) valueAnimator.getAnimatedValue();
+                mView.getImageView().setX(point.getX());
+                mView.getImageView().setY(point.getY());
+            }
+        });
+    }
+
+    private void reset() {
+        mView.removeView();
+        mView.getImageView().setX(0);
+        mView.getImageView().setY(0);
     }
 }

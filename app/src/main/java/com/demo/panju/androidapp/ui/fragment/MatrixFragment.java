@@ -1,6 +1,5 @@
 package com.demo.panju.androidapp.ui.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,8 +16,9 @@ import com.demo.panju.androidapp.base.BaseFragment;
 import com.demo.panju.androidapp.data.Data;
 import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
-import com.demo.panju.androidapp.mvp.presenter.PropertyAnimationPresenterImpl;
-import com.demo.panju.androidapp.mvp.view.PropertyAnimationView;
+import com.demo.panju.androidapp.mvp.presenter.MatrixPresenterImpl;
+import com.demo.panju.androidapp.mvp.view.MatrixView;
+import com.demo.panju.androidapp.ui.view.CustomImageView;
 
 import javax.inject.Inject;
 
@@ -27,88 +27,68 @@ import butterknife.ButterKnife;
 
 /**
  * Author : PZY
- * Date : 2016.8.3
+ * Date : 2016.8.5
  */
-public class PropertyAnimationFragment extends BaseFragment implements PropertyAnimationView {
-
-    @BindView(R.id.iv_ball)
-    ImageView mBall;
+public class MatrixFragment extends BaseFragment implements MatrixView {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.fl)
     FrameLayout mFrameLayout;
 
     @Inject
-    PropertyAnimationPresenterImpl mPresenter;
+    CustomImageView imageView;
 
-    private View mCustomView;
+    @Inject
+    MatrixPresenterImpl presenter;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.animation, container, false);
+        View view = inflater.inflate(R.layout.fragment_matrix, container, false);
         ButterKnife.bind(this, view);
         initRecycleView();
+        mFrameLayout.addView(imageView);
+        imageView.setScaleType(ImageView.ScaleType.MATRIX);
         return view;
     }
 
     @Override
     protected void init() {
         getComponent(MainComponent.class).inject(this);
-        mPresenter.attachView(this);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected <C> C getComponent(Class<C> componentType) {
-        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
+        presenter.attachView(this);
     }
 
     private void initRecycleView() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 4);
         AnimationAdapter adapter = new AnimationAdapter(mContext);
 
-        this.mRecyclerView.setLayoutManager(gridLayoutManager);
-        this.mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setAdapter(adapter);
 
-        adapter.refresh(Data.getPropertyAnimationOperationType());
+        adapter.refresh(Data.getTransformType());
         adapter.setOnItemListener(onItemListener);
     }
 
-    @Override
-    public ImageView getImageView() {
-        return this.mBall;
+    public static MatrixFragment newInstance() {
+        return new MatrixFragment();
     }
 
     @Override
-    public Activity getCurrentActivity() {
-        return getActivity();
+    public CustomImageView getImageView() {
+        return this.imageView;
     }
-
-    @Override
-    public void addView() {
-        mBall.setVisibility(View.GONE);
-        mCustomView = LayoutInflater.from(mContext).inflate(R.layout.activity_custom_animation, mFrameLayout, false);
-        mFrameLayout.addView(mCustomView);
-    }
-
-    @Override
-    public void removeView() {
-        if (null != mCustomView) {
-            mFrameLayout.removeView(mCustomView);
-        }
-        mBall.setVisibility(View.VISIBLE);
-    }
-
 
     private AnimationAdapter.OnItemListener onItemListener = new AnimationAdapter.OnItemListener() {
         @Override
         public void onItemClick(View view, int position) {
-            mPresenter.click(position);
+            presenter.click(position);
         }
     };
 
-    public static PropertyAnimationFragment newInstance() {
-        return new PropertyAnimationFragment();
+    @SuppressWarnings("unchecked")
+    protected <C> C getComponent(Class<C> componentType) {
+        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
 
 }

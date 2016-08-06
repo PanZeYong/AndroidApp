@@ -13,4 +13,8 @@ public interface PropertyAnimationView extends BaseView{
     ImageView getImageView();
 
     Activity getCurrentActivity();
+
+    void addView();
+
+    void removeView();
 }
