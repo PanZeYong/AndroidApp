@@ -10,9 +10,9 @@
             android:icon="@mipmap/animation"
             android:title="Matrix Demo" />
         <item
-            android:id="@+id/item_rxjava"
+            android:id="@+id/item_rrc"
             android:icon="@mipmap/animation"
-            android:title="Rxjava" />
+            android:title="RxJava+Retrofit+Cache" />
     </group>
 
     <item android:title="Animation">

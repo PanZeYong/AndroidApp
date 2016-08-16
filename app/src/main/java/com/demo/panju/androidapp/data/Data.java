@@ -8,10 +8,6 @@ import java.util.List;
  * Date : 2016.8.3
  */
 public class Data {
-    public final static String MVP_DEMO = "MVP Demo";
-    public final static String VIEW_ANIMATION = "View Animation";
-    public final static String PROPERTY_ANIMATION = "Property Animation";
-    public final static String MATRIX_DEMO = "Matrix Demo";
 
     private static List<String> mViewDatas = new ArrayList<>();
 

@@ -4,8 +4,10 @@ import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import com.demo.panju.androidapp.R;
+import com.demo.panju.androidapp.constant.Constant;
 import com.demo.panju.androidapp.data.Data;
 import com.demo.panju.androidapp.mvp.view.MainView;
+import com.demo.panju.androidapp.ui.fragment.GalleryFragment;
 import com.demo.panju.androidapp.ui.fragment.LoginFragment;
 import com.demo.panju.androidapp.ui.fragment.MatrixFragment;
 import com.demo.panju.androidapp.ui.fragment.PropertyAnimationFragment;
@@ -31,22 +33,27 @@ public class MainPresenterImpl implements MainPresenter {
         switch (item.getItemId()) {
             case R.id.item_mvp:
                 mainView.showFragment(LoginFragment.newInstance(), R.id.fg_container);
-                mainView.setTitle(Data.MVP_DEMO);
+                mainView.setTitle(Constant.MVP_DEMO);
                 break;
 
             case R.id.item_matrix:
                 mainView.showFragment(MatrixFragment.newInstance(), R.id.fg_container);
-                mainView.setTitle(Data.MATRIX_DEMO);
+                mainView.setTitle(Constant.MATRIX_DEMO);
+                break;
+
+            case R.id.item_rrc:
+                mainView.showFragment(GalleryFragment.newInstance(), R.id.fg_container);
+                mainView.setTitle(Constant.RXJAVA_RETROFIT_CACHE);
                 break;
 
             case R.id.property:
                 mainView.showFragment(PropertyAnimationFragment.newInstance(), R.id.fg_container);
-                mainView.setTitle(Data.PROPERTY_ANIMATION);
+                mainView.setTitle(Constant.PROPERTY_ANIMATION);
                 break;
 
             case R.id.view:
                 mainView.showFragment(ViewAnimationFragment.newInstance(), R.id.fg_container);
-                mainView.setTitle(Data.VIEW_ANIMATION);
+                mainView.setTitle(Constant.VIEW_ANIMATION);
                 break;
 
             default:
