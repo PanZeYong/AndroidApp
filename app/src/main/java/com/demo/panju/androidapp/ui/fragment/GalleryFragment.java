@@ -2,29 +2,29 @@ package com.demo.panju.androidapp.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseFragment;
-import com.demo.panju.androidapp.bean.Category;
-import com.demo.panju.androidapp.network.GalleryApi;
+import com.demo.panju.androidapp.inject.HasComponent;
+import com.demo.panju.androidapp.inject.component.MainComponent;
+import com.demo.panju.androidapp.mvp.presenter.GalleryPresenterImpl;
+import com.demo.panju.androidapp.mvp.view.GalleryView;
 
-import rx.Observer;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import javax.inject.Inject;
+
 
 /**
  * Author : PZY
  * Date : 2016.8.16
  */
-public class GalleryFragment extends BaseFragment{
+public class GalleryFragment extends BaseFragment implements GalleryView{
     private final static String TAG = GalleryFragment.class.getSimpleName();
 
-    private GalleryApi mGalleryApi;
+    @Inject
+    GalleryPresenterImpl mPresenter;
 
     @Nullable
     @Override
@@ -38,37 +38,32 @@ public class GalleryFragment extends BaseFragment{
 
     @Override
     protected void init() {
-        this.mGalleryApi = new GalleryApi(mContext);
-        category();
-    }
-
-    private void category() {
-        mGalleryApi.category()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Category>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.e(TAG, "onCompleted()");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Category category) {
-                        Log.e(TAG, category.getTngou().size()+"");
-                        for (int i = 0; i < category.getTngou().size(); i++) {
-                            Log.e(TAG, category.getTngou().get(i).getDescription());
-                        }
-
-                    }
-                });
+        getComponent(MainComponent.class).inject(this);
+        mPresenter.attachView(this);
+        mPresenter.getCategories();
     }
 
     public static GalleryFragment newInstance() {
         return new GalleryFragment();
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void dismissProgress() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mPresenter.detachView();
+    }
+
+    @SuppressWarnings("unchecked") protected <C> C getComponent(Class<C> componentType) {
+        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
 }

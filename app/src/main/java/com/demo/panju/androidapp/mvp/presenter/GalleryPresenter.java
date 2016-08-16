@@ -1,8 +1,12 @@
 package com.demo.panju.androidapp.mvp.presenter;
 
+import com.demo.panju.androidapp.base.BasePresenter;
+import com.demo.panju.androidapp.mvp.view.GalleryView;
+
 /**
- * Author : panju
- * Date : 16-8-16
+ * Author : PZY
+ * Date : 2016.8.16
  */
-public class GalleryPresenter {
+public interface GalleryPresenter extends BasePresenter<GalleryView>{
+    void getCategories();
 }
