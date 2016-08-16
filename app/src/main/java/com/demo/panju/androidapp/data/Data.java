@@ -8,10 +8,6 @@ import java.util.List;
  * Date : 2016.8.3
  */
 public class Data {
-    public final static String MVP_DEMO = "MVP Demo";
-    public final static String VIEW_ANIMATION = "View Animation";
-    public final static String PROPERTY_ANIMATION = "Property Animation";
-    public final static String MATRIX_DEMO = "Matrix Demo";
 
     private static List<String> mViewDatas = new ArrayList<>();
 
@@ -53,6 +49,7 @@ public class Data {
         mPropertyDatas.add("动画集合");
         mPropertyDatas.add("自定义动画");
         mPropertyDatas.add("抛物线");
+        mPropertyDatas.add("抖动");
 
         return mPropertyDatas;
     }
@@ -64,6 +61,14 @@ public class Data {
 
         mTransform.add("平移");
         mTransform.add("旋转");
+        mTransform.add("缩放");
+        mTransform.add("错切X");
+        mTransform.add("错切Y");
+        mTransform.add("错切");
+        mTransform.add("关于X轴对称");
+        mTransform.add("关于Y轴对称");
+        mTransform.add("关于y=x对称");
+        mTransform.add("关于y=-x对称");
 
         return mTransform;
     }
