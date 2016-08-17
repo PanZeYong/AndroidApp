@@ -14,7 +14,6 @@ import android.view.View;
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseActivity;
 import com.demo.panju.androidapp.inject.HasComponent;
-import com.demo.panju.androidapp.inject.component.DaggerMainComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
 import com.demo.panju.androidapp.inject.module.MainModule;
 import com.demo.panju.androidapp.mvp.presenter.MainPresenterImpl;

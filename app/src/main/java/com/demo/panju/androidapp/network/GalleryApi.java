@@ -1,17 +1,8 @@
 package com.demo.panju.androidapp.network;
 
-import android.content.Context;
-import android.util.Log;
-
 import com.demo.panju.androidapp.bean.Category;
 import com.demo.panju.androidapp.constant.Constant;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,10 +15,10 @@ import rx.Observable;
 public class GalleryApi {
     public GalleryApiService galleryApiService;
 
-    public GalleryApi(OkHttpClient okHttpClient) {
+    public GalleryApi() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
-                .client(okHttpClient)
+//                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();

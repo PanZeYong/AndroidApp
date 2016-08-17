@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.demo.panju.androidapp.bean.Category;
+import com.demo.panju.androidapp.inject.scope.ActivityScope;
 import com.demo.panju.androidapp.mvp.view.GalleryView;
 import com.demo.panju.androidapp.network.GalleryApi;
 
@@ -22,8 +23,10 @@ public class GalleryPresenterImpl implements GalleryPresenter{
 
     private GalleryView mGalleryView;
 
-    @Inject
     GalleryApi mGalleryApi;
+
+    @Inject
+    public GalleryPresenterImpl() {}
 
     @Override
     public void getCategories() {
@@ -44,9 +47,9 @@ public class GalleryPresenterImpl implements GalleryPresenter{
                     @Override
                     public void onNext(Category category) {
                         Log.e(TAG, category.getTngou().size()+"");
-                        for (int i = 0; i < category.getTngou().size(); i++) {
-                            Log.e(TAG, category.getTngou().get(i).getDescription());
-                        }
+//                        for (int i = 0; i < category.getTngou().size(); i++) {
+//                            Log.e(TAG, category.getTngou().get(i).getDescription());
+//                        }
 
                     }
                 });
@@ -54,6 +57,7 @@ public class GalleryPresenterImpl implements GalleryPresenter{
 
     @Override
     public void attachView(@NonNull GalleryView view) {
+        this.mGalleryApi = new GalleryApi();
         if (null == mGalleryView) {
             this.mGalleryView = view;
         }

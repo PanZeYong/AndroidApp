@@ -1,5 +1,6 @@
 package com.demo.panju.androidapp.inject.component;
 
+import com.demo.panju.androidapp.inject.module.AppModule;
 import com.demo.panju.androidapp.inject.module.MainModule;
 import com.demo.panju.androidapp.inject.scope.ActivityScope;
 import com.demo.panju.androidapp.mvp.view.GalleryView;
@@ -19,10 +20,8 @@ import okhttp3.OkHttpClient;
  * Date : 2016.8.1
  */
 @ActivityScope
-@Component(modules = MainModule.class, dependencies = AppComponent.class)
+@Component(modules = {MainModule.class}, dependencies = AppComponent.class)
 public interface MainComponent {
-    GalleryApi getGalleryApi();
-    OkHttpClient getOkHttpClient();
 
     void inject(MainActivity mainActivity);
 
@@ -30,5 +29,7 @@ public interface MainComponent {
     void inject(ViewAnimationFragment fragment);
     void inject(PropertyAnimationFragment fragment);
     void inject(MatrixFragment fragment);
+
     void inject(GalleryFragment fragment);
+
 }

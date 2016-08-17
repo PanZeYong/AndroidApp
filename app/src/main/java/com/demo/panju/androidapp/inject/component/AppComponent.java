@@ -8,6 +8,7 @@ import com.demo.panju.androidapp.inject.module.AppModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import okhttp3.OkHttpClient;
 
 /**
  * Author : PZY

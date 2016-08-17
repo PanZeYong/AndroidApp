@@ -3,11 +3,15 @@ package com.demo.panju.androidapp.inject.module;
 import android.content.Context;
 
 import com.demo.panju.androidapp.base.MyApplication;
+import com.demo.panju.androidapp.network.HeaderInterceptor;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 
 /**
  * Author : PZY
