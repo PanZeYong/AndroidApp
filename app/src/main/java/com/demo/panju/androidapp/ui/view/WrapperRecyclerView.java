@@ -2,8 +2,11 @@ package com.demo.panju.androidapp.ui.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.demo.panju.androidapp.adapter.WrapperRecyclerViewAdapter;
@@ -16,13 +19,16 @@ import java.util.ArrayList;
  * Date : 2016.8.17
  */
 public class WrapperRecyclerView extends RecyclerView{
-    public final static int BASE_HEADER_VIEW_TYPE = 0;
-    public final static int BASE_FOOTER_VIEW_TYPE = 1;
+    private final static String TAG = "TAG : " + WrapperRecyclerView.class.getSimpleName();
+    public final static int BASE_HEADER_VIEW_TYPE = 1;
+    public final static int BASE_FOOTER_VIEW_TYPE = 2;
 
     private Adapter mAdapter;
 
     private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<>();
     private ArrayList<FixedViewInfo> mFooterViewInfos = new ArrayList<>();
+
+    private boolean isShouldSpan = false;
 
     public WrapperRecyclerView(Context context) {
         super(context);
@@ -37,24 +43,26 @@ public class WrapperRecyclerView extends RecyclerView{
     }
 
     public void addHeaderView(View view) {
+        Log.e(TAG, "addHeaderView()");
         FixedViewInfo info = new FixedViewInfo();
         info.view = view;
-        info.viewType = BASE_HEADER_VIEW_TYPE + mHeaderViewInfos.size();
+        info.viewType = BASE_HEADER_VIEW_TYPE;
         mHeaderViewInfos.add(info);
 
         if (null != mAdapter) {
             if (!(mAdapter instanceof WrapperRecyclerViewAdapter)) {
                 mAdapter = new WrapperRecyclerViewAdapter(mHeaderViewInfos, mFooterViewInfos, mAdapter);
             }
-            mAdapter.notifyDataSetChanged();
+//            mAdapter.notifyDataSetChanged();
         }
     }
 
     public void addFooterView(View view) {
+        Log.e(TAG, "addFooterView()");
         FixedViewInfo info = new FixedViewInfo();
         info.view = view;
-        info.viewType = BASE_FOOTER_VIEW_TYPE + mFooterViewInfos.size();
-        mHeaderViewInfos.add(info);
+        info.viewType = BASE_FOOTER_VIEW_TYPE;
+        mFooterViewInfos.add(info);
 
         if (null != mAdapter) {
             if (!(mAdapter instanceof WrapperRecyclerViewAdapter)) {
@@ -66,20 +74,33 @@ public class WrapperRecyclerView extends RecyclerView{
 
     @Override
     public void setAdapter(Adapter adapter) {
+        Log.e(TAG, "addFooterView()");
         if (mHeaderViewInfos.isEmpty() && mFooterViewInfos.isEmpty()) {
             super.setAdapter(adapter);
         } else {
-            mAdapter = new WrapperRecyclerViewAdapter(mHeaderViewInfos, mFooterViewInfos, mAdapter);
+            adapter = new WrapperRecyclerViewAdapter(mHeaderViewInfos, mFooterViewInfos, adapter);
             super.setAdapter(adapter);
         }
+
+        this.mAdapter = adapter;
+
+        if (isShouldSpan) {
+            ((WrapperRecyclerViewAdapter)mAdapter).adjustSpanCount(this);
+        }
+
+    }
+
+    @Override
+    public void setLayoutManager(LayoutManager layout) {
+        Log.e(TAG, "setLayoutManager()");
+        if (layout instanceof GridLayoutManager || layout instanceof StaggeredGridLayoutManager) {
+            this.isShouldSpan = true;
+        }
+        super.setLayoutManager(layout);
     }
 
     public class FixedViewInfo {
         public View view;
         public int viewType;
-
-        public FixedViewInfo() {
-            throw new RuntimeException("Stub!");
-        }
     }
 }

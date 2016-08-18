@@ -18,4 +18,6 @@
     <string name="login_success">恭喜你，登陆成功！</string>
     <string name="login_fail">密码或用户名不正确</string>
     <string name="username_not_exist">该用户名不存在</string>
+
+    <string name="load_more">正在加载更多...</string>
 </resources>
