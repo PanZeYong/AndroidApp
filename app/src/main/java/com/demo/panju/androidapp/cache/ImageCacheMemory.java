@@ -11,9 +11,6 @@ import java.util.LinkedHashMap;
  * Date : 2016.8.18
  */
 public class ImageCacheMemory {
-    /**
-     *  source : http://blog.csdn.net/singwhatiwanna/article/details/17566439
-     */
 
     private final static String TAG = ImageCacheMemory.class.getSimpleName();
 

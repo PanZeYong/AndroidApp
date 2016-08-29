@@ -13,6 +13,10 @@
             android:id="@+id/item_rrc"
             android:icon="@mipmap/animation"
             android:title="RxJava+Retrofit+Cache" />
+        <item
+            android:id="@+id/item_app_info"
+            android:icon="@mipmap/animation"
+            android:title="Installed App Info" />
     </group>
 
     <item android:title="Animation">

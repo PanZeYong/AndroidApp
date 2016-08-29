@@ -8,6 +8,7 @@ import com.demo.panju.androidapp.constant.Constant;
 import com.demo.panju.androidapp.data.Data;
 import com.demo.panju.androidapp.mvp.view.MainView;
 import com.demo.panju.androidapp.ui.fragment.GalleryFragment;
+import com.demo.panju.androidapp.ui.fragment.InstalledAppInfoFragment;
 import com.demo.panju.androidapp.ui.fragment.LoginFragment;
 import com.demo.panju.androidapp.ui.fragment.MatrixFragment;
 import com.demo.panju.androidapp.ui.fragment.PropertyAnimationFragment;
@@ -44,6 +45,11 @@ public class MainPresenterImpl implements MainPresenter {
             case R.id.item_rrc:
                 mainView.showFragment(GalleryFragment.newInstance(), R.id.fg_container);
                 mainView.setTitle(Constant.RXJAVA_RETROFIT_CACHE);
+                break;
+
+            case R.id.item_app_info:
+                mainView.showFragment(InstalledAppInfoFragment.newInstance(), R.id.fg_container);
+                mainView.setTitle(Constant.INSTALLED_APP_INFO);
                 break;
 
             case R.id.property:

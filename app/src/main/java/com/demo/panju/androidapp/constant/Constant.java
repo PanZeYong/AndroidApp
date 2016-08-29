@@ -13,6 +13,7 @@ public class Constant {
     public final static String PROPERTY_ANIMATION = "Property Animation";
     public final static String MATRIX_DEMO = "Matrix Demo";
     public final static String RXJAVA_RETROFIT_CACHE = "RxJava+Retrofit+Cache";
+    public final static String INSTALLED_APP_INFO = "Installed App Info";
 
     public final static String BASE_URL = "http://www.tngou.net/tnfs/api/";
 }

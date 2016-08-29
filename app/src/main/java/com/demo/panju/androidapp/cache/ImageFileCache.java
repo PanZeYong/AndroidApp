@@ -1,11 +1,15 @@
 package com.demo.panju.androidapp.cache;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -38,8 +42,6 @@ public class ImageFileCache {
 
         removeCache(getCacheDir());
     }
-
-
 
     /**
      * 计算存储目录下的文件大小，
@@ -84,8 +86,71 @@ public class ImageFileCache {
         return true;
     }
 
-    private String getInternalStorageDir() {
-        return mContext.getCacheDir().getPath();
+    /**
+     * 将图片保存到文件中
+     * @param bitmap
+     * @param url
+     */
+    public void addBitmapToFile(Bitmap bitmap, String url) {
+        if (null == bitmap) {
+            return;
+        }
+
+        if (getSdCardFreeSpace() < FREE_SD_SPACE_NEEDED_TO_CACHE) {
+            return;
+        }
+
+        String fileName = convertUrlToFileName(url);
+        File dirFile = new File(getCacheDir());
+        if (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+        File file = new File(getCacheDir() + "/" + fileName);
+        FileOutputStream outputStream = null;
+        try {
+            file.createNewFile();
+            outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != outputStream) {
+                    outputStream.close();
+                }
+            } catch (IOException e) {
+                    e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
+     * 从文件中获取图片
+     * @param url
+     * @return
+     */
+    public Bitmap getBitmapFromFile(String url) {
+        String path = getCacheDir() + "/" + convertUrlToFileName(url);
+        File file = new File(path);
+
+        if (null != file && file.exists()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+            if (null == bitmap) {
+                file.delete();
+            } else {
+                updateFileTime(path);
+                return bitmap;
+            }
+        }
+
+        return null;
+    }
+
+    private String convertUrlToFileName(String url) {
+        return url.hashCode() + CACHE_TAIL;
     }
 
     /**
