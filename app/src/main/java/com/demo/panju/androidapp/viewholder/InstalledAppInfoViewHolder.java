@@ -16,13 +16,13 @@ import butterknife.ButterKnife;
  */
 public class InstalledAppInfoViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.icon)
-    ImageView mIcon;
+    public ImageView mIcon;
     @BindView(R.id.app_name)
-    TextView mAppName;
+    public TextView mAppName;
     @BindView(R.id.version_name)
-    TextView mVersionName;
+    public TextView mVersionName;
     @BindView(R.id.version_code)
-    TextView mVersionCode;
+    public TextView mVersionCode;
 
     public InstalledAppInfoViewHolder(View itemView) {
         super(itemView);

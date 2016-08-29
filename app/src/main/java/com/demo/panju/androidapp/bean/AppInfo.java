@@ -12,7 +12,25 @@ public class AppInfo {
     String versionName;
     String versionCode;
     String packageName;
+    String date;
+    int size;
     Drawable icon;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public String getAppName() {
         return appName;
