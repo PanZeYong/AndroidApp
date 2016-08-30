@@ -23,6 +23,8 @@ public class InstalledAppInfoAdapter extends RecyclerView.Adapter<InstalledAppIn
     private Context mContext;
     private LayoutInflater mInflater;
 
+    private OnItemClickListener mListener;
+
     public InstalledAppInfoAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
@@ -36,16 +38,22 @@ public class InstalledAppInfoAdapter extends RecyclerView.Adapter<InstalledAppIn
     @Override
     public InstalledAppInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.adapter_installed_app_info_item, parent, false);
-        InstalledAppInfoViewHolder viewHolder = new InstalledAppInfoViewHolder(view);
+        InstalledAppInfoViewHolder viewHolder = new InstalledAppInfoViewHolder(view, mListener);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(InstalledAppInfoViewHolder holder, int position) {
         holder.mIcon.setImageDrawable(mAppInfoList.get(position).getIcon());
-        holder.mAppName.setText(mAppInfoList.get(position).getAppName());
-        holder.mVersionName.setText(mAppInfoList.get(position).getVersionName());
-        holder.mVersionCode.setText(mAppInfoList.get(position).getVersionCode());
+        holder.mAppName.setText(mContext.getResources().getString(R.string.name) + mAppInfoList.get(position).getAppName());
+        holder.mVersionName.setText(mContext.getResources().getString(R.string.version_name) + mAppInfoList.get(position).getVersionName());
+        holder.mVersionCode.setText(mContext.getResources().getString(R.string.version_code) + mAppInfoList.get(position).getVersionCode());
+        holder.mCacheSize.setText(mContext.getResources().getString(R.string.cache_size) + mAppInfoList.get(position).getCacheSize());
+        holder.mCodeSize.setText(mContext.getResources().getString(R.string.code_size) + mAppInfoList.get(position).getCodeSize());
+        holder.mDataSize.setText(mContext.getResources().getString(R.string.data_size) + mAppInfoList.get(position).getDataSize());
+        holder.mInstallTime.setText(mContext.getResources().getString(R.string.install_time) + mAppInfoList.get(position).getInstallTime());
+        holder.mUpdateTime.setText(mContext.getResources().getString(R.string.last_update_time) + mAppInfoList.get(position).getUpdateTime());
+        holder.mInstallLocation.setText(mContext.getResources().getString(R.string.install_location) + mAppInfoList.get(position).getInstallLocation());
     }
 
     @Override
@@ -58,19 +66,11 @@ public class InstalledAppInfoAdapter extends RecyclerView.Adapter<InstalledAppIn
         return position;
     }
 
-    /*class InstalledAppInfoViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.icon)
-        ImageView mIcon;
-        @BindView(R.id.app_name)
-        TextView mAppName;
-        @BindView(R.id.version_name)
-        TextView mVersionName;
-        @BindView(R.id.version_code)
-        TextView mVersionCode;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
 
-        public InstalledAppInfoViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }*/
+    public interface OnItemClickListener {
+        void uninstall(int position);
+    }
 }

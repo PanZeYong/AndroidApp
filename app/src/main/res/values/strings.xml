@@ -20,4 +20,15 @@
     <string name="username_not_exist">该用户名不存在</string>
 
     <string name="load_more">正在加载更多...</string>
+
+    <string name="name">应用名 ： </string>
+    <string name="version_name">版本名 ： </string>
+    <string name="version_code">版本号 ： </string>
+    <string name="install_time">安装时间 ： </string>
+    <string name="last_update_time">更新时间 ： </string>
+    <string name="code_size">应用大小 ： </string>
+    <string name="cache_size">缓存大小 ： </string>
+    <string name="data_size">数据大小 ： </string>
+    <string name="install_location">安装位置 ： </string>
+    <string name="uninstall">卸载</string>
 </resources>

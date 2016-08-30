@@ -13,7 +13,62 @@ public class AppInfo {
     String versionCode;
     String packageName;
     String date;
-    int size;
+    String codeSize;
+
+    public String getInstallLocation() {
+        return installLocation;
+    }
+
+    public void setInstallLocation(String installLocation) {
+        this.installLocation = installLocation;
+    }
+
+    String dataSize;
+    String installTime;
+    String updateTime;
+    String installLocation;
+
+    public String getInstallTime() {
+        return installTime;
+    }
+
+    public void setInstallTime(String installTime) {
+        this.installTime = installTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getCacheSize() {
+        return cacheSize;
+    }
+
+    public void setCacheSize(String cacheSize) {
+        this.cacheSize = cacheSize;
+    }
+
+    public String getCodeSize() {
+        return codeSize;
+    }
+
+    public void setCodeSize(String codeSize) {
+        this.codeSize = codeSize;
+    }
+
+    public String getDataSize() {
+        return dataSize;
+    }
+
+    public void setDataSize(String dataSize) {
+        this.dataSize = dataSize;
+    }
+
+    String cacheSize;
     Drawable icon;
 
     public String getDate() {
@@ -22,14 +77,6 @@ public class AppInfo {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public String getAppName() {
