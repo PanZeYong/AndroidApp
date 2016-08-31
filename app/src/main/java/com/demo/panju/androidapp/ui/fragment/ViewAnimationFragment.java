@@ -17,7 +17,7 @@ import com.demo.panju.androidapp.base.BaseFragment;
 import com.demo.panju.androidapp.data.Data;
 import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
-import com.demo.panju.androidapp.mvp.presenter.ViewAnimationPresenterImpl;
+import com.demo.panju.androidapp.mvp.presenter.impl.ViewAnimationPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.ViewAnimationView;
 
 import javax.inject.Inject;

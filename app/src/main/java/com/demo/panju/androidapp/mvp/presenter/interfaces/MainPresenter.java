@@ -1,4 +1,4 @@
-package com.demo.panju.androidapp.mvp.presenter;
+package com.demo.panju.androidapp.mvp.presenter.interfaces;
 
 import android.view.MenuItem;
 

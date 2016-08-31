@@ -19,6 +19,13 @@
         </activity>
 
         <activity android:name=".ui.activity.CustomAnimationActivity" />
+
+        <receiver
+            android:name=".ui.fragment.InstalledAppInfoFragment$Receiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

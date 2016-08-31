@@ -7,6 +7,7 @@ import com.demo.panju.androidapp.mvp.view.GalleryView;
 import com.demo.panju.androidapp.network.GalleryApi;
 import com.demo.panju.androidapp.ui.activity.MainActivity;
 import com.demo.panju.androidapp.ui.fragment.GalleryFragment;
+import com.demo.panju.androidapp.ui.fragment.InstalledAppInfoFragment;
 import com.demo.panju.androidapp.ui.fragment.LoginFragment;
 import com.demo.panju.androidapp.ui.fragment.MatrixFragment;
 import com.demo.panju.androidapp.ui.fragment.PropertyAnimationFragment;
@@ -31,5 +32,6 @@ public interface MainComponent {
     void inject(MatrixFragment fragment);
 
     void inject(GalleryFragment fragment);
+    void inject(InstalledAppInfoFragment fragment);
 
 }

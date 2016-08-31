@@ -1,7 +1,8 @@
-package com.demo.panju.androidapp.mvp.presenter;
+package com.demo.panju.androidapp.mvp.presenter.impl;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -13,9 +14,18 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
+import com.demo.panju.androidapp.bean.Category;
+import com.demo.panju.androidapp.mvp.presenter.interfaces.GalleryPresenter;
+import com.demo.panju.androidapp.mvp.presenter.interfaces.ViewAnimationPresenter;
+import com.demo.panju.androidapp.mvp.view.GalleryView;
 import com.demo.panju.androidapp.mvp.view.ViewAnimationView;
+import com.demo.panju.androidapp.network.GalleryApi;
 
 import javax.inject.Inject;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Author : panju

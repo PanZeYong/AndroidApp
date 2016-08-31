@@ -1,11 +1,11 @@
-package com.demo.panju.androidapp.mvp.presenter;
+package com.demo.panju.androidapp.mvp.presenter.impl;
 
 import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.demo.panju.androidapp.mvp.presenter.interfaces.MatrixPresenter;
 import com.demo.panju.androidapp.mvp.view.MatrixView;
-import com.demo.panju.androidapp.ui.view.CustomImageView;
 
 import javax.inject.Inject;
 

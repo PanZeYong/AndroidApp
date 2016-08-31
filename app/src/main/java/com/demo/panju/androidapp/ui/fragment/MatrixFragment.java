@@ -16,7 +16,7 @@ import com.demo.panju.androidapp.base.BaseFragment;
 import com.demo.panju.androidapp.data.Data;
 import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
-import com.demo.panju.androidapp.mvp.presenter.MatrixPresenterImpl;
+import com.demo.panju.androidapp.mvp.presenter.impl.MatrixPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.MatrixView;
 import com.demo.panju.androidapp.ui.view.CustomImageView;
 

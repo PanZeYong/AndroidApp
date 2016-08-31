@@ -6,8 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.adapter.GalleryAdapter;
@@ -15,10 +13,10 @@ import com.demo.panju.androidapp.base.BaseFragment;
 import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
 import com.demo.panju.androidapp.listener.RecyclerViewOnScrollListener;
-import com.demo.panju.androidapp.mvp.presenter.GalleryPresenterImpl;
+import com.demo.panju.androidapp.mvp.presenter.impl.GalleryPresenterImpl;
+import com.demo.panju.androidapp.mvp.presenter.impl.ViewAnimationPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.GalleryView;
 import com.demo.panju.androidapp.ui.view.CustomRecyclerView;
-import com.demo.panju.androidapp.ui.view.WrapperRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;

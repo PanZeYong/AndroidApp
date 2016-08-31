@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
-import android.os.storage.StorageVolume;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,14 +19,11 @@ import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.base.BaseFragment;
 import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
-import com.demo.panju.androidapp.mvp.presenter.LoginPresenterImpl;
+import com.demo.panju.androidapp.mvp.presenter.impl.LoginPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.LoginView;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

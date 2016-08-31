@@ -27,15 +27,14 @@ import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.adapter.InstalledAppInfoAdapter;
 import com.demo.panju.androidapp.base.BaseFragment;
 import com.demo.panju.androidapp.bean.AppInfo;
+import com.demo.panju.androidapp.inject.HasComponent;
+import com.demo.panju.androidapp.inject.component.MainComponent;
+import com.demo.panju.androidapp.mvp.presenter.impl.InstalledAppInfoPresenterImpl;
+import com.demo.panju.androidapp.mvp.view.InstalledAppInfoView;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +43,8 @@ import butterknife.ButterKnife;
  * Author : PZY
  * Date : 2016.8.29
  */
-public class InstalledAppInfoFragment extends BaseFragment implements InstalledAppInfoAdapter.OnItemClickListener{
+public class InstalledAppInfoFragment extends BaseFragment implements
+        InstalledAppInfoAdapter.OnItemClickListener, InstalledAppInfoView{
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -53,25 +53,14 @@ public class InstalledAppInfoFragment extends BaseFragment implements InstalledA
 
     private List<AppInfo> mAppInfoList = new ArrayList<>();
 
-    private Receiver mReceiver;
+    private boolean isUninstall = false;
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    mProgressBar.setVisibility(View.GONE);
-                    mAppInfoList = (List<AppInfo>) msg.obj;
-                    initRecyclerView();
-                    break;
+    private AppInfo mUninstalledObject;
 
-                default:
-                    break;
-            }
-            super.handleMessage(msg);
+    private InstalledAppInfoAdapter mAdapter;
 
-        }
-    };
+    @Inject
+    InstalledAppInfoPresenterImpl mPresenter;
 
     @Nullable
     @Override
@@ -79,146 +68,80 @@ public class InstalledAppInfoFragment extends BaseFragment implements InstalledA
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_installed_app_info, container, false);
         ButterKnife.bind(this, view);
-        getAppInfo();
+        initRecyclerView();
+        load();
         return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        mReceiver = new Receiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("android.intent.action.PACKAGE_REMOVED");
-        filter.addDataScheme("package");
-        mContext.registerReceiver(mReceiver, filter);
+    protected void init() {
+        getComponent(MainComponent.class).inject(this);
+        mPresenter.attachView(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isUninstall) {
+            mAppInfoList.remove(mUninstalledObject);
+            mAdapter.refresh(mAppInfoList);
+            this.isUninstall = false;
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (null != mReceiver) {
-            mContext.unregisterReceiver(mReceiver);
-        }
+        mPresenter.detachView();
     }
 
     @Override
-    protected void init() {
-
+    public void getAppInfo(List<AppInfo> appInfoList) {
+        this.mAppInfoList = appInfoList;
+        mAdapter.refresh(mAppInfoList);
     }
 
-    private void initRecyclerView() {
-        LinearLayoutManager manager = new LinearLayoutManager(mContext);
-        InstalledAppInfoAdapter adapter = new InstalledAppInfoAdapter(mContext);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(adapter);
-        adapter.refresh(mAppInfoList);
-        adapter.setOnItemClickListener(this);
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    private void getAppInfo() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mProgressBar.setVisibility(View.VISIBLE);
-                PackageManager packageManager = mContext.getPackageManager();
-                List<PackageInfo> list = packageManager.getInstalledPackages(0);
-                for (int i = 0; i < list.size(); i++) {
-                    if ((list.get(i).applicationInfo.flags & list.get(i).applicationInfo.FLAG_SYSTEM) <= 0) {
-                        AppInfo appInfo = new AppInfo();
-                        appInfo.setAppName(packageManager.getApplicationLabel(list.get(i).applicationInfo).toString());
-                        appInfo.setVersionCode(list.get(i).versionCode + "");
-                        appInfo.setVersionName(list.get(i).versionName);
-                        appInfo.setPackageName(list.get(i).packageName);
-                        appInfo.setInstallTime(formatFileTime(list.get(i).firstInstallTime));
-                        appInfo.setUpdateTime(formatFileTime(list.get(i).lastUpdateTime));
-                        appInfo.setIcon(packageManager.getApplicationIcon(list.get(i).applicationInfo));
-                        appInfo.setInstallLocation(list.get(i).applicationInfo.sourceDir);
-                        getSize(packageManager, appInfo);
-                        mAppInfoList.add(appInfo);
-                    }
-                }
-                Message message = mHandler.obtainMessage();
-                message.what = 0;
-                message.obj = mAppInfoList;
-                mHandler.sendMessage(message);
-            }
-        }).start();
-    }
-
-    private void getSize(PackageManager packageManager, final AppInfo appInfo) {
-        if (null != appInfo.getPackageName()) {
-            try {
-                Method getPackageSizeInfo = packageManager.getClass().
-                        getDeclaredMethod("getPackageSizeInfo", String.class, int.class, IPackageStatsObserver.class);
-                getPackageSizeInfo.invoke(packageManager, appInfo.getPackageName(), Process.myUid() / 100000, new IPackageStatsObserver.Stub() {
-                    @Override
-                    public void onGetStatsCompleted(PackageStats pStats, boolean succeeded) throws RemoteException {
-                        Log.e("TAG", formatFileSize(pStats.cacheSize));
-                        Log.e("TAG", formatFileSize(pStats.dataSize));
-                        Log.e("TAG", formatFileSize(pStats.codeSize));
-                        appInfo.setDataSize(formatFileSize(pStats.dataSize + pStats.externalDataSize));
-                        appInfo.setCacheSize(formatFileSize(pStats.cacheSize + pStats.externalCacheSize));
-                        appInfo.setCodeSize(formatFileSize(pStats.codeSize + pStats.externalCodeSize));
-                    }
-                });
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //系统函数，字符串转换 long -String (kb)
-    private String formatFileSize(long size){
-        DecimalFormat df = new DecimalFormat("#.##");
-        if (size / 1024 < 1024) {
-            return Double.parseDouble(df.format((double)size / 1024)) + "KB";
-        } else if (size / 1024 / 1024 < 1024) {
-            return Double.parseDouble(df.format((double)size / 1024 / 1024)) + "MB";
-        } else {
-            return Double.parseDouble(df.format((double)size / 1024 / 1024 / 1024)) + "G";
-        }
-    }
-
-    private String formatFileTime(long time) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
-        Date date = new Date(time);
-        return sdf.format(date);
-    }
-
-    private String installLocation(int installLocation) {
-        if (PackageInfo.INSTALL_LOCATION_AUTO == installLocation) {
-            return "auto";
-        } else if (PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY == installLocation) {
-            return "internal only";
-        } else if (PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL == installLocation) {
-            return "prefer external";
-        } else {
-            return "";
-        }
-    }
-
-    public static InstalledAppInfoFragment newInstance() {
-        return new InstalledAppInfoFragment();
+    @Override
+    public void dismissProgress() {
+        mProgressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void uninstall(int position) {
+        this.isUninstall = true;
+        this.mUninstalledObject = mAppInfoList.get(position);
+
         Uri uri = Uri.parse("package:" + mAppInfoList.get(position).getPackageName());
         Intent intent = new Intent(Intent.ACTION_DELETE, uri);
         startActivity(intent);
     }
 
-    class Receiver extends BroadcastReceiver {
+    @SuppressWarnings("unchecked") protected <C> C getComponent(Class<C> componentType) {
+        return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
+    }
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getDataString().equals("android.intent.action.PACKAGE_REMOVED")) {
-                getAppInfo();
-            }
+    private void initRecyclerView() {
+        LinearLayoutManager manager = new LinearLayoutManager(mContext);
+        mAdapter = new InstalledAppInfoAdapter(mContext);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
+    }
+
+    private void load() {
+        if (mAppInfoList.size() != 0) {
+            mAppInfoList.clear();
         }
+
+        mPresenter.load();
+    }
+
+    public static InstalledAppInfoFragment newInstance() {
+        return new InstalledAppInfoFragment();
     }
 }

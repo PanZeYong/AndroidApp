@@ -1,20 +1,18 @@
-package com.demo.panju.androidapp.mvp.presenter;
+package com.demo.panju.androidapp.mvp.presenter.impl;
 
 import android.animation.AnimatorSet;
-import android.animation.IntEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.WindowManager;
 
 import com.demo.panju.androidapp.animation.ShakeAnimation;
 import com.demo.panju.androidapp.bean.Point;
+import com.demo.panju.androidapp.mvp.presenter.interfaces.PropertyAnimationPresenter;
 import com.demo.panju.androidapp.mvp.view.PropertyAnimationView;
-import com.demo.panju.androidapp.ui.activity.CustomAnimationActivity;
 
 import javax.inject.Inject;
 
@@ -22,7 +20,7 @@ import javax.inject.Inject;
  * Author : PZY
  * Date : 2016.8.3
  */
-public class PropertyAnimationPresenterImpl implements PropertyAnimationPresenter{
+public class PropertyAnimationPresenterImpl implements PropertyAnimationPresenter {
     private PropertyAnimationView mView;
 
     private int mWidth;

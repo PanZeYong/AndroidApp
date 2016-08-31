@@ -1,4 +1,4 @@
-package com.demo.panju.androidapp.mvp.presenter;
+package com.demo.panju.androidapp.mvp.presenter.impl;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.demo.panju.androidapp.mvp.model.UserModel;
 import com.demo.panju.androidapp.mvp.model.UserModelImpl;
+import com.demo.panju.androidapp.mvp.presenter.interfaces.LoginPresenter;
 import com.demo.panju.androidapp.mvp.view.LoginView;
 
 import javax.inject.Inject;

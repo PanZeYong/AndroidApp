@@ -1,11 +1,11 @@
-package com.demo.panju.androidapp.mvp.presenter;
+package com.demo.panju.androidapp.mvp.presenter.impl;
 
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
 import com.demo.panju.androidapp.R;
 import com.demo.panju.androidapp.constant.Constant;
-import com.demo.panju.androidapp.data.Data;
+import com.demo.panju.androidapp.mvp.presenter.interfaces.MainPresenter;
 import com.demo.panju.androidapp.mvp.view.MainView;
 import com.demo.panju.androidapp.ui.fragment.GalleryFragment;
 import com.demo.panju.androidapp.ui.fragment.InstalledAppInfoFragment;

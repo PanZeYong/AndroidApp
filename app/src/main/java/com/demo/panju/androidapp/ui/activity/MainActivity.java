@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -17,7 +18,7 @@ import com.demo.panju.androidapp.inject.HasComponent;
 import com.demo.panju.androidapp.inject.component.DaggerMainComponent;
 import com.demo.panju.androidapp.inject.component.MainComponent;
 import com.demo.panju.androidapp.inject.module.MainModule;
-import com.demo.panju.androidapp.mvp.presenter.MainPresenterImpl;
+import com.demo.panju.androidapp.mvp.presenter.impl.MainPresenterImpl;
 import com.demo.panju.androidapp.mvp.view.MainView;
 
 import javax.inject.Inject;
@@ -56,6 +57,26 @@ public class MainActivity extends BaseActivity
                         .build();
 
         mainComponent.inject(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override

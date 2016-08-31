@@ -1,4 +1,4 @@
-package com.demo.panju.androidapp.mvp.presenter;
+package com.demo.panju.androidapp.mvp.presenter.interfaces;
 
 import com.demo.panju.androidapp.base.BasePresenter;
 import com.demo.panju.androidapp.mvp.view.GalleryView;
