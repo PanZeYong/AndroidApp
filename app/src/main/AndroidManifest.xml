@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.demo.panju.androidapp">
+    package="com.demo.panju.androidapp"
+    android:installLocation="preferExternal">
 
     <uses-permission android:name="android.permission.GET_PACKAGE_SIZE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,12 +21,6 @@
 
         <activity android:name=".ui.activity.CustomAnimationActivity" />
 
-        <receiver
-            android:name=".ui.fragment.InstalledAppInfoFragment$Receiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

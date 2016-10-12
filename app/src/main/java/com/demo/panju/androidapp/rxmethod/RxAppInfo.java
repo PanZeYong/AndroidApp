@@ -1,6 +1,7 @@
 package com.demo.panju.androidapp.rxmethod;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -80,7 +81,7 @@ public class RxAppInfo {
                         appInfo.setInstallTime(FormatUtil.formatFileTime(info.firstInstallTime));
                         appInfo.setUpdateTime(FormatUtil.formatFileTime(info.lastUpdateTime));
                         appInfo.setIcon(packageManager.getApplicationIcon(info.applicationInfo));
-                        appInfo.setInstallLocation(info.applicationInfo.sourceDir);
+                        appInfo.setInstallLocation(isInstallToSd(info.applicationInfo));
                         getSize(packageManager, appInfo);
                         sAppInfoList.add(appInfo);
                     }
@@ -121,6 +122,16 @@ public class RxAppInfo {
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static String isInstallToSd(ApplicationInfo applicationInfo) {
+        if ((applicationInfo.FLAG_EXTERNAL_STORAGE & applicationInfo.flags) == applicationInfo.FLAG_EXTERNAL_STORAGE) {
+            //安装到了SD卡
+            return "SD";
+        }else{
+            //安装到手机中
+            return applicationInfo.sourceDir;
         }
     }
 }
